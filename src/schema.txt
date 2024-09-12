@@ -1,0 +1,22 @@
+type Player {
+  name: String!
+  role: String!
+  age: Int!
+  team: Team @relationship(type: "PLAYED_FOR", direction: OUT)
+  matches: [Match] @relationship(type: "PARTICIPATED_IN", direction: OUT)
+}
+
+type Team {
+  name: String!
+  country: String!
+  players: [Player] @relationship(type: "PLAYED_FOR", direction: IN)
+  wonMatches: [Match] @relationship(type: "WON_MATCH", direction: OUT)
+}
+
+type Match {
+  date: String!
+  location: String!
+  match_type: String!
+  participants: [Player] @relationship(type: "PARTICIPATED_IN", direction: IN)
+  winner: Team @relationship(type: "WON_MATCH", direction: IN)
+}
